@@ -27,7 +27,7 @@ unsigned char keydelete;
 bit cmp;
 bit blckopn;
 void lckopn(void);
-void myDelay_us(unsigned int delay)     //∫Œ¿˙ ±∏µø«œ±‚¿ß«— delay«‘ºˆ 
+void myDelay_us(unsigned int delay)     //Î∂ÄÏ†Ä Íµ¨ÎèôÌïòÍ∏∞ÏúÑÌïú delayÌï®Ïàò 
 {
     int i;
     for(i=0; i<delay; i++)
@@ -35,15 +35,15 @@ void myDelay_us(unsigned int delay)     //∫Œ¿˙ ±∏µø«œ±‚¿ß«— delay«‘ºˆ
         delay_us(1);
     }
 }
-void SSound(unsigned int time)                  //¿Ω∞Ë √‚∑¬ «‘ºˆ 
+void SSound(unsigned int time)                  //ÏùåÍ≥Ñ Ï∂úÎ†• Ìï®Ïàò 
 {
     int i, tim;
     tim = 50000/time;
-    for(i=0; i<tim; i++) // ¿Ω∞Ë∏∂¥Ÿ ∞∞¿∫ Ω√∞£ µøæ» øÔ∏Æµµ∑œ time ∫Øºˆ ªÁøÎ
+    for(i=0; i<tim; i++) // ÏùåÍ≥ÑÎßàÎã§ Í∞ôÏùÄ ÏãúÍ∞Ñ ÎèôÏïà Ïö∏Î¶¨ÎèÑÎ°ù time Î≥ÄÏàò ÏÇ¨Ïö©
     {
-        PORTG |= 1<<PORTG4; //∫Œ¿˙ON, PORTG¿« 4π¯ «… ON(out 1)
+        PORTG |= 1<<PORTG4; //Î∂ÄÏ†ÄON, PORTGÏùò 4Î≤à ÌïÄ ON(out 1)
         myDelay_us(time);
-        PORTG &= ~(1<<PORTG4);  //∫Œ¿˙OFF, PORTG¿« 4π¯ «… OFF(out 0)
+        PORTG &= ~(1<<PORTG4);  //Î∂ÄÏ†ÄOFF, PORTGÏùò 4Î≤à ÌïÄ OFF(out 0)
         myDelay_us(time);
     }
 }
@@ -86,16 +86,15 @@ unsigned char KeyScan(void)
                     key_scan_num = 17;
                     break;
             }
-
             return key_scan_num;
         }
-
         else;
         Key_Scan_Line_Sel = (Key_Scan_Line_Sel >> 1);
     }
     return key_scan_num;
 }
-void getpassword(void) //∆–Ω∫øˆµÂ πﬁ¥¬ «‘ºˆ 
+
+void getpassword(void) //Ìå®Ïä§ÏõåÎìú Î∞õÎäî Ìï®Ïàò 
 {
     unsigned char i = 0;
     
@@ -110,7 +109,7 @@ void getpassword(void) //∆–Ω∫øˆµÂ πﬁ¥¬ «‘ºˆ
         
         if((keydelete == 8) && (i > 0))
         {   
-            i--;                        // µÙ∏Æ∆ÆæÀ∞Ì∏Æ¡Ú 
+            i--;                        // ÎîúÎ¶¨Ìä∏ÏïåÍ≥†Î¶¨Ï¶ò 
             LCD_Pos(0,i+9);                                                              
             LCD_Char(' ');
             LCD_Cursor_Shift(LEFT);
@@ -130,7 +129,7 @@ void getpassword(void) //∆–Ω∫øˆµÂ πﬁ¥¬ «‘ºˆ
                 LCD_Char(PW[i]);
             }
     
-            int_PW  = ((PW[0] - 0x30) * 1000) + ((PW[1] - 0x30) * 100) + ((PW[2] - 0x30) * 10) + (PW[3] - 0x30);   //¿˙¿Â«— ∫Òπ–π¯»£∏¶ int∑Œ 
+            int_PW  = ((PW[0] - 0x30) * 1000) + ((PW[1] - 0x30) * 100) + ((PW[2] - 0x30) * 10) + (PW[3] - 0x30);   //Ï†ÄÏû•Ìïú ÎπÑÎ∞ÄÎ≤àÌò∏Î•º intÎ°ú 
             i++;
             if(keydata == 15)
             {    
@@ -152,8 +151,6 @@ void getpassword(void) //∆–Ω∫øˆµÂ πﬁ¥¬ «‘ºˆ
                     break;
                 }
             }
-            
-            
         } 
     }     
 }
@@ -162,10 +159,10 @@ void lckopn(void)
     if(blckopn)
     {
         LCD_Pos(0,0);
-        LCD_Str(stateopen);         //∫Ò∆Æ∞° 1¿Ã∏È open ≈ÿΩ∫∆Æ 
+        LCD_Str(stateopen);         //ÎπÑÌä∏Í∞Ä 1Ïù¥Î©¥ open ÌÖçÏä§Ìä∏ 
     }
     else if(blckopn == 0)
-    {                            //∫Ò∆Æ∞° 0¿Ã∏È lock ≈ÿΩ∫∆Æ
+    {                            //ÎπÑÌä∏Í∞Ä 0Ïù¥Î©¥ lock ÌÖçÏä§Ìä∏
         LCD_Pos(0,0);
         LCD_Str(statelock);
     }
@@ -196,7 +193,7 @@ void InsertAdminPW(void)
         if((keydelete == 8) && (j > 0))
         {   
             j--;
-            LCD_Pos(1,j+3);                  //µÙ∏Æ∆Æ «‘ºˆ                                             
+            LCD_Pos(1,j+3);                  //ÎîúÎ¶¨Ìä∏ Ìï®Ïàò                                             
             LCD_Char(' ');
             LCD_Cursor_Shift(LEFT);
                 
@@ -219,51 +216,50 @@ void InsertAdminPW(void)
             
             j++;          
         }
-        if(keydata == 15)                 //ø£≈Õ «œ∏È ∫Ò±≥ 
-            {    
-                cmp = 1;
-                j=0;
-                if(cmp == 1)
-                {
-                    if( (strADCode[0] == strgetADCode[0]) &&
-                        (strADCode[1] == strgetADCode[1]) &&
-                        (strADCode[2] == strgetADCode[2]) && 
-                        (strADCode[3] == strgetADCode[3]) && 
-                        (strADCode[4] == strgetADCode[4]) && 
-                        (strADCode[5] == strgetADCode[5]) &&
-                        (strADCode[6] == strgetADCode[6]) && 
-                        (strADCode[7] == strgetADCode[7]) &&
-                        (strADCode[8] == strgetADCode[8]) && 
-                        (strADCode[9] == strgetADCode[9]))
-                    {  
-                        LCD_Clear();
-                        blckopn = 1;
-                        pwcnt = 0;
-                        SSound(Do);
-                        SSound(Mi);
-                        SSound(Sol);                           
-                        break;
+        if(keydata == 15)                 //ÏóîÌÑ∞ ÌïòÎ©¥ ÎπÑÍµê 
+        {    
+            cmp = 1;
+            j=0;
+            if(cmp == 1)
+            {
+                if( (strADCode[0] == strgetADCode[0]) &&
+                    (strADCode[1] == strgetADCode[1]) &&
+                    (strADCode[2] == strgetADCode[2]) && 
+                    (strADCode[3] == strgetADCode[3]) && 
+                    (strADCode[4] == strgetADCode[4]) && 
+                    (strADCode[5] == strgetADCode[5]) &&
+                    (strADCode[6] == strgetADCode[6]) && 
+                    (strADCode[7] == strgetADCode[7]) &&
+                    (strADCode[8] == strgetADCode[8]) && 
+                    (strADCode[9] == strgetADCode[9]))
+                {  
+                    LCD_Clear();
+                    blckopn = 1;
+                    pwcnt = 0;
+                    SSound(Do);
+                    SSound(Mi);
+                    SSound(Sol);                           
+                    break;
+                }
+                else
+                { 
+                    j=0;
+                    for(m = 0; m<3;m++)
+                    {
+                    SSound(Pa);
+                    delay_ms(70);
                     }
-                    else
-                    { 
-                        j=0;
-                        for(m = 0; m<3;m++)
-                        {
-                        SSound(Pa);
-                        delay_ms(70);
-                        }
-                        LCD_Clear();
-                        LCD_Pos(0,0);                
-                        LCD_Str(strAdmin);
-                        LCD_Pos(1,2);
-                        LCD_Char('<');
-                        LCD_Pos(1,13);
-                        LCD_Char('>');
-                        LCD_Pos(1,3); 
-                    }
+                    LCD_Clear();
+                    LCD_Pos(0,0);                
+                    LCD_Str(strAdmin);
+                    LCD_Pos(1,2);
+                    LCD_Char('<');
+                    LCD_Pos(1,13);
+                    LCD_Char('>');
+                    LCD_Pos(1,3); 
                 }
             }
-              
+        }
     }
 }
 
@@ -298,7 +294,7 @@ void main(void)
         if( (keymod != 4) && (keymod != 8) && (keymod != 12) && (keymod != 16) && (keymod != 13)) keypw = keymod;       
         if(blckopn)
         {
-            if(keymod == 13)       //OPEN ªÛ≈¬ø°º≠ *≈∞ ¥©∏£∏È ¥ŸΩ√ LOCKµ  
+            if(keymod == 13)       //OPEN ÏÉÅÌÉúÏóêÏÑú *ÌÇ§ ÎàÑÎ•¥Î©¥ Îã§Ïãú LOCKÎê® 
             {
                 blckopn = 0 ;
                 lckopn();
@@ -309,7 +305,7 @@ void main(void)
         }
         if(blckopn == 1)
         {
-            if(keymod == 4)       // OPEN ªÛ≈¬ø°º≠ M1 ¥©∏£∏È ªı ∆–Ω∫øˆµÂ æ–∑¬«‘ºˆ∑Œ 
+            if(keymod == 4)       // OPEN ÏÉÅÌÉúÏóêÏÑú M1 ÎàÑÎ•¥Î©¥ ÏÉà Ìå®Ïä§ÏõåÎìú ÏïïÎ†•Ìï®ÏàòÎ°ú 
             {
                 LCD_Pos(0,0);
                 LCD_Str(initPW); //  "--NEW PassWord--"
@@ -329,12 +325,11 @@ void main(void)
                 LCD_Pos(1,k+9);                                                              
                 LCD_Char(' ');
                 LCD_Cursor_Shift(LEFT);
-                
             }
             if(keypw)
             {
                 if(keypw % 4 != 0)
-                        trpw = (keypw / 4) * 3 + (keypw % 4);  //∫Ø»Øµ» pw∞™
+                        trpw = (keypw / 4) * 3 + (keypw % 4);  //Î≥ÄÌôòÎêú pwÍ∞í
                     else
                         trpw = (keypw / 4) + 9;
                  statePW[k] = number[trpw];
@@ -347,11 +342,9 @@ void main(void)
                 }
                                 
                 int_stPW  = ((statePW[0] - 0x30) * 1000) + ((statePW[1] - 0x30) * 100) + ((statePW[2] - 0x30) * 10) + (statePW[3] - 0x30);
-                
-                
                 k++;
                 
-                if(keymod == 15) // ø£≈Õ ¥©∏£∏È ∫Ò±≥
+                if(keymod == 15) // ÏóîÌÑ∞ ÎàÑÎ•¥Î©¥ ÎπÑÍµê
                 {
                     cmp = 1;
                 }
@@ -361,7 +354,7 @@ void main(void)
                     k=0;
                     if(int_stPW == int_PW)
                     {
-                        blckopn = 1; //pos(0,0)ø° "OPEN" √‚∑¬
+                        blckopn = 1; //pos(0,0)Ïóê "OPEN" Ï∂úÎ†•
                         pwcnt = 0;
                         LCD_Clear();
                         LCD_Pos(1,0);
